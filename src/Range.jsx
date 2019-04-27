@@ -99,6 +99,7 @@ class Range extends React.Component {
     this.startPosition = position;
 
     const closestBound = this.getClosestBound(value);
+
     this.prevMovedHandleIndex = this.getBoundNeedMoving(value, closestBound);
 
     this.setState({
@@ -160,6 +161,16 @@ class Range extends React.Component {
 
   getClosestBound(value) {
     const { bounds } = this.state;
+    const { overrideIndex } = this.props;
+    if (overrideIndex) {
+      if (value <= bounds[0]) {
+        return 0;
+      }
+      if (value >= bounds[bounds.length - 1]) {
+        return bounds.length - 1;
+      }
+      return overrideIndex;
+    }
     let closestBound = 0;
     for (let i = 1; i < bounds.length - 1; ++i) {
       if (value > bounds[i]) { closestBound = i; }
