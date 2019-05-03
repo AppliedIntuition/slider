@@ -15,7 +15,7 @@ class Range extends React.Component {
     count: PropTypes.number,
     pushable: PropTypes.oneOfType([
       PropTypes.bool,
-      PropTypes.number,
+      PropTypes.object,
     ]),
     allowCross: PropTypes.bool,
     disabled: PropTypes.bool,

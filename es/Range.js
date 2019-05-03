@@ -473,7 +473,7 @@ Range.propTypes = {
   defaultValue: PropTypes.arrayOf(PropTypes.number),
   value: PropTypes.arrayOf(PropTypes.number),
   count: PropTypes.number,
-  pushable: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
+  pushable: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
   allowCross: PropTypes.bool,
   disabled: PropTypes.bool,
   tabIndex: PropTypes.arrayOf(PropTypes.number),
