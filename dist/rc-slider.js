@@ -6233,11 +6233,21 @@ var Range = function (_React$Component) {
       thershold = Number(thershold);
       /* eslint-disable eqeqeq */
       if (!allowCross && handle != null && bounds !== undefined) {
-        if (handle > 0 && val <= bounds[handle - 1] + thershold) {
-          return bounds[handle - 1] + thershold;
+        if (handle > 0) {
+          if (val < bounds[0]) {
+            return bounds[0];
+          }
+          if (val <= bounds[handle - 1] + thershold) {
+            return bounds[handle - 1] + thershold;
+          }
         }
-        if (handle < bounds.length - 1 && val >= bounds[handle + 1] - thershold) {
-          return bounds[handle + 1] - thershold;
+        if (handle < bounds.length - 1) {
+          if (val > bounds[bounds.length - 1]) {
+            return bounds[bounds.length - 1];
+          }
+          if (val >= bounds[handle + 1] - thershold) {
+            return bounds[handle + 1] - thershold;
+          }
         }
       }
       /* eslint-enable eqeqeq */
