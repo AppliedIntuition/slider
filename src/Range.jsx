@@ -163,10 +163,10 @@ class Range extends React.Component {
     const { bounds } = this.state;
     const { overrideIndex } = this.props;
     if (overrideIndex) {
-      if (value <= bounds[0]) {
+      if (value <= this.getLowerBound()) {
         return 0;
       }
-      if (value >= bounds[bounds.length - 1]) {
+      if (value >= this.getUpperBound()) {
         return bounds.length - 1;
       }
       return overrideIndex;
@@ -330,16 +330,16 @@ class Range extends React.Component {
     /* eslint-disable eqeqeq */
     if (!allowCross && handle != null && bounds !== undefined) {
       if (handle > 0) {
-        if (val < bounds[0]) {
-          return bounds[0];
+        if (val < this.getLowerBound()) {
+          return this.getLowerBound();
         }
         if (val <= (bounds[handle - 1] + thershold)) {
           return bounds[handle - 1] + thershold;
         }
       }
       if (handle < bounds.length - 1) {
-        if (val > bounds[bounds.length - 1]) {
-          return bounds[bounds.length - 1];
+        if (val > this.getUpperBound()) {
+          return this.getUpperBound();
         }
         if (val >= (bounds[handle + 1] - thershold)) {
           return bounds[handle + 1] - thershold;
