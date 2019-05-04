@@ -1,6 +1,8 @@
 import { findDOMNode } from 'react-dom';
 import keyCode from 'rc-util/lib/KeyCode';
 
+const DELTA = 0.0000001; // used for floating point arithmetic
+
 export function isDev() {
   return (process.env.NODE_ENV !== 'production');
 }
@@ -26,8 +28,8 @@ export function isNotTouchEvent(e) {
 export function getClosestPoint(val, { marks, step, min, max }) {
   const points = Object.keys(marks).map(parseFloat);
   if (step !== null) {
-    const maxSteps = Math.floor((max - min) / step);
-    const steps = Math.min((val - min) / step, maxSteps);
+    const maxSteps = Math.floor((max - min + DELTA) / step);
+    const steps = Math.min((val - min + DELTA) / step, maxSteps);
     const closestStep =
             Math.round(steps) * step + min;
     points.push(closestStep);
