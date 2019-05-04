@@ -1646,6 +1646,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 
 
+var DELTA = 0.0000001; // used for floating point arithmetic
+
 function isDev() {
   return process.env.NODE_ENV !== 'production';
 }
@@ -1679,8 +1681,8 @@ function getClosestPoint(val, _ref2) {
 
   var points = Object.keys(marks).map(parseFloat);
   if (step !== null) {
-    var maxSteps = Math.floor((max - min) / step);
-    var steps = Math.min((val - min) / step, maxSteps);
+    var maxSteps = Math.floor((max - min + DELTA) / step);
+    var steps = Math.min((val - min + DELTA) / step, maxSteps);
     var closestStep = Math.round(steps) * step + min;
     points.push(closestStep);
   }
@@ -6026,10 +6028,10 @@ var Range = function (_React$Component) {
       var overrideIndex = this.props.overrideIndex;
 
       if (overrideIndex) {
-        if (value <= bounds[0]) {
+        if (value <= this.getLowerBound()) {
           return 0;
         }
-        if (value >= bounds[bounds.length - 1]) {
+        if (value >= this.getUpperBound()) {
           return bounds.length - 1;
         }
         return overrideIndex;
@@ -6234,16 +6236,16 @@ var Range = function (_React$Component) {
       /* eslint-disable eqeqeq */
       if (!allowCross && handle != null && bounds !== undefined) {
         if (handle > 0) {
-          if (val < bounds[0]) {
-            return bounds[0];
+          if (val < this.getLowerBound()) {
+            return this.getLowerBound();
           }
           if (val <= bounds[handle - 1] + thershold) {
             return bounds[handle - 1] + thershold;
           }
         }
         if (handle < bounds.length - 1) {
-          if (val > bounds[bounds.length - 1]) {
-            return bounds[bounds.length - 1];
+          if (val > this.getUpperBound()) {
+            return this.getUpperBound();
           }
           if (val >= bounds[handle + 1] - thershold) {
             return bounds[handle + 1] - thershold;

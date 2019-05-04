@@ -2,6 +2,8 @@ import _toConsumableArray from 'babel-runtime/helpers/toConsumableArray';
 import { findDOMNode } from 'react-dom';
 import keyCode from 'rc-util/es/KeyCode';
 
+var DELTA = 0.0000001; // used for floating point arithmetic
+
 export function isDev() {
   return process.env.NODE_ENV !== 'production';
 }
@@ -35,8 +37,8 @@ export function getClosestPoint(val, _ref2) {
 
   var points = Object.keys(marks).map(parseFloat);
   if (step !== null) {
-    var maxSteps = Math.floor((max - min) / step);
-    var steps = Math.min((val - min) / step, maxSteps);
+    var maxSteps = Math.floor((max - min + DELTA) / step);
+    var steps = Math.min((val - min + DELTA) / step, maxSteps);
     var closestStep = Math.round(steps) * step + min;
     points.push(closestStep);
   }
