@@ -6028,10 +6028,10 @@ var Range = function (_React$Component) {
       var overrideIndex = this.props.overrideIndex;
 
       if (overrideIndex) {
-        if (value <= this.getLowerBound()) {
+        if (value <= this.getLowerBound() + this.getUpperBound() / 20) {
           return 0;
         }
-        if (value >= this.getUpperBound()) {
+        if (value >= this.getUpperBound() - this.getUpperBound() / 20) {
           return bounds.length - 1;
         }
         return overrideIndex;
