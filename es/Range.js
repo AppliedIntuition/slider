@@ -176,10 +176,12 @@ var Range = function (_React$Component) {
       var overrideIndex = this.props.overrideIndex;
 
       if (overrideIndex) {
-        if (value <= this.getLowerBound() + this.getUpperBound() / 20) {
+        // 98 means the the users mouse has to be almost on top of the outer
+        // handles to move them.
+        if (value <= this.getLowerBound() + this.getUpperBound() / 98) {
           return 0;
         }
-        if (value >= this.getUpperBound() - this.getUpperBound() / 20) {
+        if (value >= this.getUpperBound() - this.getUpperBound() / 98) {
           return bounds.length - 1;
         }
         return overrideIndex;
