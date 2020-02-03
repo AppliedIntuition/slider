@@ -6028,12 +6028,12 @@ var Range = function (_React$Component) {
       var overrideIndex = this.props.overrideIndex;
 
       if (overrideIndex) {
-        // 98 means the the users mouse has to be almost on top of the outer
-        // handles to move them.
-        if (value <= this.getLowerBound() + this.getUpperBound() / 98) {
+        // Change handles to only be moved if the user clicks within 1% of their value.
+        const handleValue = (this.getUpperBound() - this.getLowerBound()) * 0.01;
+        if (value <= this.getLowerBound() + handleValue) {
           return 0;
         }
-        if (value >= this.getUpperBound() - this.getUpperBound() / 98) {
+        if (value >= this.getUpperBound() - handleValue) {
           return bounds.length - 1;
         }
         return overrideIndex;
