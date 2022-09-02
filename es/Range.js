@@ -174,14 +174,16 @@ var Range = function (_React$Component) {
     value: function getClosestBound(value) {
       var bounds = this.state.bounds;
       var overrideIndex = this.props.overrideIndex;
+      var offsetPx = this.calcOffset(value) / 100 * this.getSliderLength();
+      var lowerBoundPx = this.calcOffset(this.getLowerBound()) / 100 * this.getSliderLength();
+      var upperBoundPx = this.calcOffset(this.getUpperBound()) / 100 * this.getSliderLength();
 
       if (overrideIndex) {
-        // Change handles to only be moved if the user clicks within 1% of their value.
-        const handleValue = (this.getUpperBound() - this.getLowerBound()) * 0.01;
-        if (value <= this.getLowerBound() + handleValue) {
+
+        if (offsetPx <= lowerBoundPx + 8) {
           return 0;
         }
-        if (value >= this.getUpperBound() - handleValue) {
+        if (offsetPx >= upperBoundPx - 8) {
           return bounds.length - 1;
         }
         return overrideIndex;
