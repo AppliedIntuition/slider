@@ -291,7 +291,7 @@ export default function createSlider(Component) {
             onMouseDown: disabled ? noop : this.onMouseDown,
             onMouseUp: disabled ? noop : this.onMouseUp,
             onKeyDown: disabled ? noop : this.onKeyDown,
-            onFocus: disabled ? noop : this.onFocus,
+            onFocus: noop /* Patched; context: https://github.com/AppliedIntuition/applied2/issues/13906#issuecomment-749892903 */,
             onBlur: disabled ? noop : this.onBlur,
             style: style
           },
