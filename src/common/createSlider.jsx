@@ -215,8 +215,8 @@ export default function createSlider(Component) {
     }
 
     addDocumentMouseEvents() {
-      this.onMouseMoveListener = addEventListener(this.document, 'mousemove', this.onMouseMove);
-      this.onMouseUpListener = addEventListener(this.document, 'mouseup', this.onEnd);
+      this.onMouseMoveListener = addEventListener(this.document, 'mousemove', this.onMouseMove, { capture: true });
+      this.onMouseUpListener = addEventListener(this.document, 'mouseup', this.onEnd, { capture: true });
     }
 
     removeDocumentEvents() {
