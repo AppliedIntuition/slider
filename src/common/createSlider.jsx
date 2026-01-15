@@ -100,6 +100,7 @@ export default function createSlider(Component) {
     }
 
     onMouseDown = (e) => {
+      console.log('🔵 MOUSEDOWN - Starting drag');
       if (e.button !== 0) { return; }
 
       const isVertical = this.props.vertical;
@@ -114,6 +115,7 @@ export default function createSlider(Component) {
       this.removeDocumentEvents();
       this.onStart(position);
       this.addDocumentMouseEvents();
+      console.log('🔵 MOUSEDOWN - Document listeners added');
     }
 
     onTouchStart = (e) => {
@@ -212,19 +214,33 @@ export default function createSlider(Component) {
       // just work for Chrome iOS Safari and Android Browser
       // Use native addEventListener with capture: true to ensure events are caught
       // before Modal's stopPropagation in the bubbling phase
+      console.log('🟢 ADDING DOCUMENT TOUCH LISTENERS');
+      
       const touchMoveHandler = this.onTouchMove.bind(this);
-      const touchEndHandler = this.onEnd.bind(this);
+      const touchEndHandler = (e) => {
+        console.log('🔴 TOUCHEND CAPTURED IN CAPTURE PHASE!', {
+          target: e.target,
+          currentTarget: e.currentTarget,
+          eventPhase: e.eventPhase,
+        });
+        this.onEnd(e);
+        console.log('🔴 Called this.onEnd');
+      };
       
       this.document.addEventListener('touchmove', touchMoveHandler, { capture: true });
       this.document.addEventListener('touchend', touchEndHandler, { capture: true });
       
+      console.log('✅ TOUCH LISTENERS ATTACHED (capture: true)');
+      
       this.onTouchMoveListener = {
         remove: () => {
+          console.log('🟡 REMOVING TOUCHMOVE LISTENER');
           this.document.removeEventListener('touchmove', touchMoveHandler, { capture: true });
         }
       };
       this.onTouchUpListener = {
         remove: () => {
+          console.log('🟡 REMOVING TOUCHEND LISTENER');
           this.document.removeEventListener('touchend', touchEndHandler, { capture: true });
         }
       };
@@ -233,19 +249,34 @@ export default function createSlider(Component) {
     addDocumentMouseEvents() {
       // Use native addEventListener with capture: true to ensure events are caught
       // before Modal's stopPropagation in the bubbling phase
+      console.log('🟢 ADDING DOCUMENT MOUSE LISTENERS');
+      
       const mouseMoveHandler = this.onMouseMove.bind(this);
-      const mouseUpHandler = this.onEnd.bind(this);
+      const mouseUpHandler = (e) => {
+        console.log('🔴 MOUSEUP CAPTURED IN CAPTURE PHASE!', {
+          target: e.target,
+          currentTarget: e.currentTarget,
+          eventPhase: e.eventPhase, // 1=capture, 2=target, 3=bubble
+          type: e.type,
+        });
+        this.onEnd(e);
+        console.log('🔴 Called this.onEnd');
+      };
       
       this.document.addEventListener('mousemove', mouseMoveHandler, { capture: true });
       this.document.addEventListener('mouseup', mouseUpHandler, { capture: true });
       
+      console.log('✅ MOUSE LISTENERS ATTACHED (capture: true)');
+      
       this.onMouseMoveListener = {
         remove: () => {
+          console.log('🟡 REMOVING MOUSEMOVE LISTENER');
           this.document.removeEventListener('mousemove', mouseMoveHandler, { capture: true });
         }
       };
       this.onMouseUpListener = {
         remove: () => {
+          console.log('🟡 REMOVING MOUSEUP LISTENER');
           this.document.removeEventListener('mouseup', mouseUpHandler, { capture: true });
         }
       };
