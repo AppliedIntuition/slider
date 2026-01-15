@@ -90,6 +90,7 @@ export default function createSlider(Component) {
     }
 
     componentDidMount() {
+      console.log('🚨🚨🚨 SLIDER MOUNTED - NEW CODE VERSION 🚨🚨🚨');
       // Snapshot testing cannot handle refs, so be sure to null-check this.
       this.document = this.sliderRef && this.sliderRef.ownerDocument;
     }
@@ -336,6 +337,7 @@ export default function createSlider(Component) {
     }
 
     render() {
+      console.log('🚨🚨🚨 SLIDER RENDER - NEW CODE VERSION WITH DEBUG LOGS 🚨🚨🚨');
       const {
         prefixCls,
         className,
