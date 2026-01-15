@@ -210,13 +210,45 @@ export default function createSlider(Component) {
 
     addDocumentTouchEvents() {
       // just work for Chrome iOS Safari and Android Browser
-      this.onTouchMoveListener = addEventListener(this.document, 'touchmove', this.onTouchMove, { capture: true });
-      this.onTouchUpListener = addEventListener(this.document, 'touchend', this.onEnd, { capture: true });
+      // Use native addEventListener with capture: true to ensure events are caught
+      // before Modal's stopPropagation in the bubbling phase
+      const touchMoveHandler = this.onTouchMove.bind(this);
+      const touchEndHandler = this.onEnd.bind(this);
+      
+      this.document.addEventListener('touchmove', touchMoveHandler, { capture: true });
+      this.document.addEventListener('touchend', touchEndHandler, { capture: true });
+      
+      this.onTouchMoveListener = {
+        remove: () => {
+          this.document.removeEventListener('touchmove', touchMoveHandler, { capture: true });
+        }
+      };
+      this.onTouchUpListener = {
+        remove: () => {
+          this.document.removeEventListener('touchend', touchEndHandler, { capture: true });
+        }
+      };
     }
 
     addDocumentMouseEvents() {
-      this.onMouseMoveListener = addEventListener(this.document, 'mousemove', this.onMouseMove, { capture: true });
-      this.onMouseUpListener = addEventListener(this.document, 'mouseup', this.onEnd, { capture: true });
+      // Use native addEventListener with capture: true to ensure events are caught
+      // before Modal's stopPropagation in the bubbling phase
+      const mouseMoveHandler = this.onMouseMove.bind(this);
+      const mouseUpHandler = this.onEnd.bind(this);
+      
+      this.document.addEventListener('mousemove', mouseMoveHandler, { capture: true });
+      this.document.addEventListener('mouseup', mouseUpHandler, { capture: true });
+      
+      this.onMouseMoveListener = {
+        remove: () => {
+          this.document.removeEventListener('mousemove', mouseMoveHandler, { capture: true });
+        }
+      };
+      this.onMouseUpListener = {
+        remove: () => {
+          this.document.removeEventListener('mouseup', mouseUpHandler, { capture: true });
+        }
+      };
     }
 
     removeDocumentEvents() {
