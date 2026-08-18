@@ -182,16 +182,16 @@ export default function createSlider(Component) {
         // just work for Chrome iOS Safari and Android Browser
         // Capture phase so drag-end fires before a portal/overlay stopPropagation in the bubble phase
         // can swallow it (e.g. rc-slider rendered inside a portaled Modal).
-        this.onTouchMoveListener = addEventListener(this.document, 'touchmove', this.onTouchMove, true);
-        this.onTouchUpListener = addEventListener(this.document, 'touchend', this.onEnd, true);
+        this.onTouchMoveListener = addEventListener(this.document, 'touchmove', this.onTouchMove, { capture: true });
+        this.onTouchUpListener = addEventListener(this.document, 'touchend', this.onEnd, { capture: true });
       }
     }, {
       key: 'addDocumentMouseEvents',
       value: function addDocumentMouseEvents() {
         // Capture phase so drag-end fires before a portal/overlay stopPropagation in the bubble phase
         // can swallow it (e.g. rc-slider rendered inside a portaled Modal).
-        this.onMouseMoveListener = addEventListener(this.document, 'mousemove', this.onMouseMove, true);
-        this.onMouseUpListener = addEventListener(this.document, 'mouseup', this.onEnd, true);
+        this.onMouseMoveListener = addEventListener(this.document, 'mousemove', this.onMouseMove, { capture: true });
+        this.onMouseUpListener = addEventListener(this.document, 'mouseup', this.onEnd, { capture: true });
       }
     }, {
       key: 'removeDocumentEvents',

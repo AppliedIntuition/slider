@@ -2358,16 +2358,16 @@ function createSlider(Component) {
         // just work for Chrome iOS Safari and Android Browser
         // Capture phase so drag-end fires before a portal/overlay stopPropagation in the bubble phase
         // can swallow it (e.g. rc-slider rendered inside a portaled Modal).
-        this.onTouchMoveListener = Object(__WEBPACK_IMPORTED_MODULE_2_rc_util_es_Dom_addEventListener__["a" /* default */])(this.document, 'touchmove', this.onTouchMove, true);
-        this.onTouchUpListener = Object(__WEBPACK_IMPORTED_MODULE_2_rc_util_es_Dom_addEventListener__["a" /* default */])(this.document, 'touchend', this.onEnd, true);
+        this.onTouchMoveListener = Object(__WEBPACK_IMPORTED_MODULE_2_rc_util_es_Dom_addEventListener__["a" /* default */])(this.document, 'touchmove', this.onTouchMove, { capture: true });
+        this.onTouchUpListener = Object(__WEBPACK_IMPORTED_MODULE_2_rc_util_es_Dom_addEventListener__["a" /* default */])(this.document, 'touchend', this.onEnd, { capture: true });
       }
     }, {
       key: 'addDocumentMouseEvents',
       value: function addDocumentMouseEvents() {
         // Capture phase so drag-end fires before a portal/overlay stopPropagation in the bubble phase
         // can swallow it (e.g. rc-slider rendered inside a portaled Modal).
-        this.onMouseMoveListener = Object(__WEBPACK_IMPORTED_MODULE_2_rc_util_es_Dom_addEventListener__["a" /* default */])(this.document, 'mousemove', this.onMouseMove, true);
-        this.onMouseUpListener = Object(__WEBPACK_IMPORTED_MODULE_2_rc_util_es_Dom_addEventListener__["a" /* default */])(this.document, 'mouseup', this.onEnd, true);
+        this.onMouseMoveListener = Object(__WEBPACK_IMPORTED_MODULE_2_rc_util_es_Dom_addEventListener__["a" /* default */])(this.document, 'mousemove', this.onMouseMove, { capture: true });
+        this.onMouseUpListener = Object(__WEBPACK_IMPORTED_MODULE_2_rc_util_es_Dom_addEventListener__["a" /* default */])(this.document, 'mouseup', this.onEnd, { capture: true });
       }
     }, {
       key: 'removeDocumentEvents',
