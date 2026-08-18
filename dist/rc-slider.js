@@ -2356,14 +2356,18 @@ function createSlider(Component) {
       key: 'addDocumentTouchEvents',
       value: function addDocumentTouchEvents() {
         // just work for Chrome iOS Safari and Android Browser
-        this.onTouchMoveListener = Object(__WEBPACK_IMPORTED_MODULE_2_rc_util_es_Dom_addEventListener__["a" /* default */])(this.document, 'touchmove', this.onTouchMove);
-        this.onTouchUpListener = Object(__WEBPACK_IMPORTED_MODULE_2_rc_util_es_Dom_addEventListener__["a" /* default */])(this.document, 'touchend', this.onEnd);
+        // Capture phase so drag-end fires before a portal/overlay stopPropagation in the bubble phase
+        // can swallow it (e.g. rc-slider rendered inside a portaled Modal).
+        this.onTouchMoveListener = Object(__WEBPACK_IMPORTED_MODULE_2_rc_util_es_Dom_addEventListener__["a" /* default */])(this.document, 'touchmove', this.onTouchMove, true);
+        this.onTouchUpListener = Object(__WEBPACK_IMPORTED_MODULE_2_rc_util_es_Dom_addEventListener__["a" /* default */])(this.document, 'touchend', this.onEnd, true);
       }
     }, {
       key: 'addDocumentMouseEvents',
       value: function addDocumentMouseEvents() {
-        this.onMouseMoveListener = Object(__WEBPACK_IMPORTED_MODULE_2_rc_util_es_Dom_addEventListener__["a" /* default */])(this.document, 'mousemove', this.onMouseMove);
-        this.onMouseUpListener = Object(__WEBPACK_IMPORTED_MODULE_2_rc_util_es_Dom_addEventListener__["a" /* default */])(this.document, 'mouseup', this.onEnd);
+        // Capture phase so drag-end fires before a portal/overlay stopPropagation in the bubble phase
+        // can swallow it (e.g. rc-slider rendered inside a portaled Modal).
+        this.onMouseMoveListener = Object(__WEBPACK_IMPORTED_MODULE_2_rc_util_es_Dom_addEventListener__["a" /* default */])(this.document, 'mousemove', this.onMouseMove, true);
+        this.onMouseUpListener = Object(__WEBPACK_IMPORTED_MODULE_2_rc_util_es_Dom_addEventListener__["a" /* default */])(this.document, 'mouseup', this.onEnd, true);
       }
     }, {
       key: 'removeDocumentEvents',
